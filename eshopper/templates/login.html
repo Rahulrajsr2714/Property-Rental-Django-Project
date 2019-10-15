@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login To Continue</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
+
+    <script>
+            $(function(){
+                $("#header").load("menu"); 
+            });
+    </script>
+
+    {% load static %}
+
+    <style type="text/css">
+        .mainbg {
+            background-image: url("{%static 'images/1.jpg'%}");
+            
+        }
+        .card-lgn{
+            border: 1px solid white;
+            border-radius: 8px;
+            margin-top: auto;
+            margin-bottom: auto;
+            background-color: rgba(0,0,0,0.5) !important;
+            text-align: center;
+        }
+            
+        .card-header h3{
+            color: white;
+        }
+
+            
+        .input-group-prepend span{
+            width: 30px;
+            background-color: #FF3C41;
+            color: #ffffff;
+            padding: 0px;
+            border:0 !important;
+        }
+        .fas{
+            margin-left: 10px;
+        }
+            
+        input:focus{
+            outline: 0 0 0 0  !important;
+            box-shadow: 0 0 0 0 !important;
+            
+        }
+            
+        .login_btn{
+            color: white;
+            background-color: #FF3C41;
+            font-weight: 600;
+            width: 100px;
+            letter-spacing: 0.5px;
+        }
+            
+        .login_btn:hover{
+            color: #FF3C41;
+            font-weight: 900;
+            background-color: white;
+        }
+            
+        .links{
+            color: white;
+        }
+            
+        .links a{
+            margin-left: 4px;
+        }
+        .colorgraph{
+            height: 5px;
+            border-top: 0;
+            background: #c4e17f;
+            border-radius: 5px;
+            background-image: linear-gradient(to right,#c4e17f,
+            #c4e17f 12.5%,#f7fdca 12.5%,#f7fdca 25%,
+            #fecf71 25%,#fecf71 37.5%,#f0776c 37.5%,#f0776c 50%,
+            #db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 
+            75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);
+        }
+
+
+    </style>
+
+
+</head>
+
+<body class="mainbg">
+    <div id="header"></div>
+
+    <div class="container my-5  ">
+        <div class="col-md-4 mx-auto card-lgn">
+            <h1 style="font-size: 30px;
+                color:#ffffff;
+                margin-top: 20px" >WELCOME BACK</h1>
+                <hr class="colorgraph">
+            
+            <div class="card-body">
+               
+                <form action="login-user" method="POST">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <!-- <input type="text" class="form-control" placeholder="EMAIL ID"> -->
+                        {% csrf_token %}
+                        {{form.email}}
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <!-- <input type="password" class="form-control" placeholder="password"> -->
+                        {{form.password}}
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn float-right login_btn">
+                        <input type="submit" value="Signup" formaction="signup-user" class="btn float-left login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+
+                    <br>
+                    <a class="" href="#">Forgot your password?</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
