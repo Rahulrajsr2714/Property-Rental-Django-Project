@@ -8,6 +8,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        {%load static%}
+        <link rel="stylesheet" href="{%static 'css/fontawesome-all.css'%}">
         <style type="text/css">
             .tempbox{
                 height: auto;
@@ -21,39 +23,63 @@
                 border-top-right-radius: 0.25rem;
                 
             }
+            .colorgraph{
+                height: 5px;
+                border-top: 0;
+                background: #c4e17f;
+                border-radius: 5px;
+                background-image: linear-gradient(to right,#c4e17f,
+                #c4e17f 12.5%,#f7fdca 12.5%,#f7fdca 25%,
+                #fecf71 25%,#fecf71 37.5%,#f0776c 37.5%,#f0776c 50%,
+                #db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 
+                75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);
+            } 
         </style>
     </head>
     <body>
-        <div class="container">
+            <div class="container">
+                <span style="float: right;">
+                    <i class="fas fa-user mr-2 mt-1"></i><p  style="float: right;
+                            margin-bottom: 0px;">Howdy {{username}}</p>
+                </span>
+            </div>
+            <br>
+            <nav class="nanavbar navbar-expand-lg navbar-dark">
+                    <div class="container">
+                        <ul class="nav nav-navbar navbar-left" style="float: left;">
+                            <li class="nav-item"><a class="nav-link" href="#">White Bricks INC</a></li>
+                        </ul>
+                        <section class="navbar-mobile">
+                            <ul class="nav nav-navbar ml-auto navbar-right" style="float: right;">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="addproperty">Add Property</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">My Properties</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link">Edit Property</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="logout-user">Logout</a>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+            </nav>
+            <hr class="colorgraph" style="clear: both; ">
+        <div class="container" style="clear: both; ">
             <div class="row">
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg">
-                    <div class="card-body">
-                        <h6>Venture Villa</h6>
-                        <p>Attingal</p>
+                    <!-- and for propertyimg in propertyimglist -->
+                {%for property,propertyimg in mylist%}
+                    <div class="col-md-4 tempbox">
+                        <img class="card-image-top d-xs" src="{{propertyimg.property_img.url}}">
+                        <div class="card-body">
+                            <h6>{{property.property_name}}</h6>
+                            <p>{{property.property_landmark}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://image.freepik.com/free-photo/tropical-leaves-colorful-flower-dark-tropical-foliage-nature-background-dark-green-foliage_34998-128.jpg">
-                    <div class="card-body">
-                        <h6>Thasil Villa</h6>
-                        <p>Kollam</p>
-                    </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://tinypng.com/images/social/website.jpg">
-                    <div class="card-body">
-                        <h6>Sundram Villa</h6>
-                        <p>Thiruvananthapuram</p>
-                    </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://pe-images.s3.amazonaws.com/photo-effects/cc/image-in-shape/photoshop-image-in-shape-effect.jpg">
-                    <div class="card-body">
-                        <h6>Sundram Villa</h6>
-                        <p>Thiruvananthapuram</p>
-                    </div>
-                </div>
+                {%endfor%}
             </div>
         </div>
     </body>

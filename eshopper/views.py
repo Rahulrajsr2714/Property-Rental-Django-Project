@@ -3,13 +3,13 @@ from django.forms import formset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from eshopper.models import Account,Property,PropertyImages
-from django.http import HttpResponse
+from django.http import HttpResponse , HttpResponseRedirect
 from .forms import LoginForm,SignupForm,AddProperty
 
 def login_account(request):
     if request.user.is_authenticated:
         #return HttpResponse('You are already logged in')
-        return render(request,"temp.html")
+        return HttpResponseRedirect('listprprty')
     else:
         if request.method == 'POST':
             login_form = LoginForm(request.POST)
@@ -21,7 +21,7 @@ def login_account(request):
                     if user.is_active:
                         login(request, user)
                         #return HttpResponse('Login Successful')
-                        return render(request,"temp.html")
+                        return HttpResponseRedirect('listprprty')
                     else:
                         return HttpResponse('Your account is not active')
                 else:
@@ -32,7 +32,7 @@ def login_account(request):
         else:
             login_form = LoginForm()
         return render(request, "login.html",{"form":LoginForm})
-
+@login_required(login_url=login_account)
 def logout_account(request):
     logout(request)
     return render(request,"login.html",{"form":LoginForm})
@@ -71,10 +71,7 @@ def signup(request):
         signup_form = SignupForm(request.POST)
     return render(request, 'signup.html',{"form":SignupForm})					
 	
-	
-def viewproperties(request):
-    return render(request,"list-properties.html")
-
+@login_required(login_url=login_account)
 def addproperty(request):
     if request.method == 'POST':
         property_form = AddProperty(request.POST,request.FILES)
@@ -112,5 +109,16 @@ def showImage(request):
     print(img)
     return render(request, 'showimage.html', {"file":img})
 
+
+def viewproperties(request):
+    propertylist = Property.objects.all()
+    propertyimagelist = PropertyImages.objects.distinct()
+    if request.user.username is '' :
+        users = 'Guest User'
+    else:
+        users = request.user.username     
+    mylist = zip(propertylist,propertyimagelist)
+    context = {"mylist": mylist,"username":users}
+    return render(request,"list-properties.html",context)
 
      

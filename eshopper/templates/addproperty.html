@@ -18,11 +18,53 @@
         }  
         .form-group{
             padding: 5px 30px 10px 30px;
-        }     
+        }    
+        .colorgraph{
+            height: 5px;
+            border-top: 0;
+            background: #c4e17f;
+            border-radius: 5px;
+            background-image: linear-gradient(to right,#c4e17f,
+            #c4e17f 12.5%,#f7fdca 12.5%,#f7fdca 25%,
+            #fecf71 25%,#fecf71 37.5%,#f0776c 37.5%,#f0776c 50%,
+            #db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 
+            75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);
+        } 
     </style>
 </head>
 <body>
     <div class="container">
+        <span style="float: right;">
+            <i class="fas fa-user mr-2 mt-1"></i><p  style="float: right;
+                    margin-bottom: 0px;">Howdy {{username}}</p>
+        </span>
+    </div>
+    <br>
+    <nav class="nanavbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <ul class="nav nav-navbar navbar-left" style="float: left;">
+                <li class="nav-item"><a class="nav-link" href="#">White Bricks INC</a></li>
+            </ul>
+            <section class="navbar-mobile">
+                <ul class="nav nav-navbar ml-auto navbar-right" style="float: right;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="addproperty">Add Property</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">My Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Edit Property</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout-user">Logout</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </nav>
+    <hr class="colorgraph" style="clear: both; ">
+    <div class="container" style="clear: both; ">
         <div class="row">
             <div class="mx-md-auto col-md-6">
                 <form action="addproperty" method="POST" enctype="multipart/form-data">
