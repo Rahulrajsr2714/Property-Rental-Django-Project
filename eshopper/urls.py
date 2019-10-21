@@ -12,4 +12,5 @@ urlpatterns = [
     path('listprprty',views.viewproperties, name = 'listprprty'),
     path('addproperty',views.addproperty, name = 'addproperty'),
     path('showimage',views.showImage, name = 'showimage'),
+    path('myproperties',views.myproperties, name = 'myproperties'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

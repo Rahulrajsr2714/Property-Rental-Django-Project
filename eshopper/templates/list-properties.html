@@ -10,11 +10,46 @@
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         {%load static%}
         <link rel="stylesheet" href="{%static 'css/fontawesome-all.css'%}">
+        <!-- Font-Awesome-Icons-CSS -->
+        <!-- //Custom-Files -->
+
+	<!-- Web-Fonts -->
+	<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
         <style type="text/css">
+            /*.mainbg {
+                background-image: url("{%static 'images/1.jpg'%}");   
+            }*/
             .tempbox{
                 height: auto;
                 padding: 15px;
+
             }
+            .groupitem{
+                box-shadow: inset 1px 1px 40px 0 rgba(0, 0, 0, 0.45);
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .overlay {
+                background: rgba(0, 0, 0, 0.75);
+                text-align: center;
+                padding: auto;
+                border-radius: 5px;
+                opacity: 0;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                bottom: 15px;
+                left: 15px;
+                -webkit-transition: opacity 0.25s ease;
+                -moz-transition: opacity 0.25s ease;
+              }
+              .tempbox:hover .overlay {
+                opacity: 1;
+              }
+
             .card-image-top{
                 width: 100%;
                 height: 200px;
@@ -34,9 +69,30 @@
                 #db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 
                 75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);
             } 
+            .menu{
+                position: -webkit-sticky;
+                position: sticky;
+                top: 5px;
+                overflow: hidden;
+                z-index: 100;
+            }
+              .btn-viewmore{
+                color: white;
+                background-color: #FF3C41;
+                font-weight: 600;
+                width: auto;
+                letter-spacing: 0.5px;
+                margin-top: 40%;
+            }
+            .btn-viewmore:hover{
+                color: #FF3C41;
+                font-weight: 900;
+                background-color: white;
+            }
+
         </style>
     </head>
-    <body>
+    <body class="mainbg">
             <div class="container">
                 <span style="float: right;">
                     <i class="fas fa-user mr-2 mt-1"></i><p  style="float: right;
@@ -44,7 +100,7 @@
                 </span>
             </div>
             <br>
-            <nav class="nanavbar navbar-expand-lg navbar-dark">
+            <nav class="nanavbar navbar-expand-lg navbar-dark menu">
                     <div class="container">
                         <ul class="nav nav-navbar navbar-left" style="float: left;">
                             <li class="nav-item"><a class="nav-link" href="#">White Bricks INC</a></li>
@@ -76,11 +132,16 @@
             <div class="row">
                     <!-- and for propertyimg in propertyimglist -->
                 {%for property,propertyimg in mylist%}
-                    <div class="col-md-4 tempbox">
-                        <img class="card-image-top d-xs" src="{{propertyimg.property_img.url}}">
-                        <div class="card-body">
-                            <h6>{{property.property_name}}</h6>
-                            <p>{{property.property_landmark}}</p>
+                    <div class="col-sm-6 col-md-4 tempbox">
+                        <div class="groupitem">
+                            <img class="img-fluid card-image-top " src="{{propertyimg.property_img.url}}">
+                            <div class="card-body image">
+                                <h6>{{property.property_name}}</h6>
+                                <p>{{property.property_landmark}}</p>
+                            </div>
+                            <div class="overlay">
+                                <button class="btn btn-viewmore">View More</button>
+                            </div>
                         </div>
                     </div>
                 {%endfor%}

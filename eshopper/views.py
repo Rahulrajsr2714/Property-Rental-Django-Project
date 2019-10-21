@@ -120,5 +120,9 @@ def viewproperties(request):
     mylist = zip(propertylist,propertyimagelist)
     context = {"mylist": mylist,"username":users}
     return render(request,"list-properties.html",context)
+    
 
-     
+     #pentaho
+
+def myproperties(request):
+    return render(request,"my-properties.html")
