@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate,login,logout
 from eshopper.models import Account,Property,PropertyImages
 from django.http import HttpResponse , HttpResponseRedirect
 from .forms import LoginForm,SignupForm,AddProperty
+from django.contrib import messages
 
 def login_account(request):
     if request.user.is_authenticated:
@@ -94,7 +95,8 @@ def addproperty(request):
                                         property_img = f,
                                         )
                 property_image_object.save()
-            return HttpResponse("sUCCESS")
+            messages.add_message(request, messages.SUCCESS, 'Successfully Added Your Property '+ip_property_name)
+            return HttpResponseRedirect("listprprty")
         else:
             return HttpResponse("form invalid")
     else:
@@ -123,6 +125,31 @@ def viewproperties(request):
     
 
      #pentaho
-
+@login_required(login_url=login_account)
 def myproperties(request):
-    return render(request,"my-properties.html")
+    mypropertieslist = Property.objects.filter(property_holder=request.user)
+    context = {"prprtylist":mypropertieslist}
+    return render(request,"my-properties.html",context)
+
+def viewdetails(request):
+    imagelist = PropertyImages.objects.all()
+    context = {"imglist":imagelist}
+    return render(request,"view-details.html",context)
+
+@login_required(login_url=login_account)
+def deactiveproperty(request,prop_id):
+    propertylist = Property.objects.get(id=prop_id)
+    propertylist.property_available = 0
+    propertylist.save()
+    messages.add_message(request, messages.ERROR, 'Successfully removed '+propertylist.property_name+" From all Properties")
+    return HttpResponseRedirect('/eshopper/myproperties')
+    # return HttpResponse("Success")
+    # return render(request,)
+
+@login_required(login_url=login_account)
+def activeproperty(request,prop_id):
+    propertylist = Property.objects.get(id=prop_id)
+    propertylist.property_available = 1
+    propertylist.save()
+    messages.add_message(request, messages.SUCCESS, 'Successfully Listed  '+propertylist.property_name+" On all Properties")
+    return HttpResponseRedirect('/eshopper/myproperties')

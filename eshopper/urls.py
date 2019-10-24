@@ -13,4 +13,8 @@ urlpatterns = [
     path('addproperty',views.addproperty, name = 'addproperty'),
     path('showimage',views.showImage, name = 'showimage'),
     path('myproperties',views.myproperties, name = 'myproperties'),
+    path('viewdetails',views.viewdetails, name = 'viewdetails'),
+    path('<int:prop_id>/deactiveproperty',views.deactiveproperty, name = 'deactiveproperty'),
+    path('<int:prop_id>/activeproperty',views.activeproperty, name = 'activeproperty'),
+    # activeproperty
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
