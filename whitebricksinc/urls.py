@@ -21,4 +21,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('eshopper/', include('eshopper.urls')),
+    path('relationstest/', include('relationstest.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

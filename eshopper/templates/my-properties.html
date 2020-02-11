@@ -1,173 +1,106 @@
-<html>
 
-<head>
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
-    {%load static%}
+{% include "partial/test123.html" %}
 
-        <!-- Custom-Files -->
-        <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
-        <!-- Bootstrap-Core-CSS -->
-        <link rel="stylesheet" href="{%static 'css/style.css'%}" type="text/css" media="all" />
-        <!-- Style-CSS -->
-        <link rel="stylesheet" href="{%static 'css/fontawesome-all.css'%}">
-        <!-- Font-Awesome-Icons-CSS -->
-        <!-- //Custom-Files -->
 
-	<!-- Web-Fonts -->
-	<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <style>
-        .mainbg {
-            background-image: url("{%static 'images/bg27.jpg'%}");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            
-        }
-        .listitem {
-            height: 50px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-content: space-around;
-            align-items: center;
-            margin-top: 15px;
-        }
+<div class="container">
+    
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %} 
 
-        .listitem p {
-            margin: 0px;
-        }
-        .redbtnactive{
-            display: inline-block;
-            color: #ffffff;
-            padding: 1vw;
-            background-color: red;
-        }
-        .redbtndisabled{
-            display: inline-block;
-            color: #ffffff;
-            padding: 1vw;
-            background-color: #E68F8C;
-        }
-        .greenbtnactive{
-            display: inline-block;
-            color: #ffffff;
-            padding: 1vw;
-            background-color: green;
-        }
-        .greenbtndisabled{
-            display: inline-block;
-            color: #ffffff;
-            padding: 1vw;
-            background-color: #95D195;
-        }
-    </style>
-</head>
+    {%for property in prprtylist%}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="listitem">
+                <h3 style="margin: 0px 0px 0px 25px;display: inline;font-size: 1.5rem">{{property.property_name}}</h3>
+                <div class="mx-auto" style="display: inline-block;">
+                    <p style="color: blue;display: inline;">Status :</p>
 
-<body class="mainbg">
-
-        <header>
-                <div class="header_topw3layouts_bar">
-                    <div class="container">
-                        <!-- navigation -->
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
-                            <a class="navbar-brand" style="font-size: 28px" href="#">WhiteBricks INC.
-                                <span>PG Rental</span>
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">All Properties</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="addproperty">Add Property</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="myproperties">My Properties</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about.html">Edit Property</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="logout-user">Logout</a>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        </nav>
-                        <!-- //navigation -->
-                    </div>
+                    <p id="{{property.id}}statustext" class="{%if property.property_available == 1 %}
+                                                                activetextstatus
+                                                            {%elif property.property_available == 0 %}
+                                                                disabledtextstatus
+                                                            {%endif%}">{%if property.property_available == 1 %}
+                                                                            Active
+                                                                        {%elif property.property_available == 0 %}
+                                                                            InActive
+                                                                        {%endif%}
+                                                                        </p>
                 </div>
-        </header>
-    <div class="container">
-        
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %} 
+                <div class="ml-auto" style="display: inline-block">
+                    <a prop-id={{property.id}} class="active active{{property.id}}">
 
-        {%for property in prprtylist%}
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-                <div class="listitem">
-                    <h3 style="margin: 0px 0px 0px 25px;display: inline;font-size: 1.5rem">{{property.property_name}}</h3>
-                    <div class="mx-auto" style="display: inline-block;">
-                        <p style="color: blue;display: inline;">Status :</p>
-                        {%if property.property_available == 1 %}
-                            <p style="color: blue;display: inline;">Active</p>
-                        {%elif property.property_available == 0 %}
-                            <p style="color: red;display: inline;">InActive</p>
-                        {%endif%}
-                    </div>
-                    <div class="ml-auto" style="display: inline-block">
-                        <a 
-                            {%if property.property_available == 0 %} 
-                                href="{{property.id}}/activeproperty">
-                            {%endif%}
-                            <i class="fas fa-check {%if property.property_available == 0 %} 
-                                                        greenbtnactive
-                                                    {%elif property.property_available == 1%}
-                                                        greenbtndisabled
-                                                    {%endif%}"></i>
-                        </a>
-                        <a 
-                            {%if property.property_available == 1 %} 
-                                href="{{property.id}}/deactiveproperty">
-                            {%endif%}
-                            <i class="fas fa-times {%if property.property_available == 1 %} 
-                                                        redbtnactive
-                                                    {%elif property.property_available == 0%}
-                                                        redbtndisabled
-                                                    {%endif%}"></i>
-                        </a>
-                    </div>
-
+                        <i id="{{property.id}}active" class="fas fa-check {%if property.property_available == 0 %} 
+                                                    greenbtnactive
+                                                {%elif property.property_available == 1%}
+                                                    greenbtndisabled
+                                                {%endif%}"></i>
+                    </a>
+                    <a prop-id={{property.id}} class="deactive deactive{{property.id}}">
+                        <i id="{{property.id}}deactive" class="fas fa-times {%if property.property_available == 1 %} 
+                                                    redbtnactive
+                                                {%elif property.property_available == 0%}
+                                                    redbtndisabled
+                                                {%endif%}"></i>
+                    </a>
                 </div>
+
             </div>
         </div>
-        {%endfor%}
     </div>
-    </div>
-</body>
+    {%endfor%}
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".deactive").click(function(){
+            propId=$(this).attr('prop-id');
+            $.ajax({
+                url:'statusprprty',
+                type:"post",
+                data:{status:"0",prop_id:propId},
+                dataType:'json',
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                success:function(data){
+                    $('#'+propId+'deactive').removeClass('redbtnactive');
+                    $('#'+propId+'deactive').addClass('redbtndisabled');
+                    $('#'+propId+'active').removeClass('greenbtndisabled');
+                    $('#'+propId+'active').addClass('greenbtnactive');
+                    $('#'+propId+'statustext').html('Inactive');
+                    $('#'+propId+'statustext').addClass('disabledtextstatus');
+                    $('#'+propId+'statustext').removeClass('activetextstatus');
 
-</html>
+                   
+
+                }
+            });
+        })
+        $(".active").click(function(){
+            propId=$(this).attr('prop-id');
+            statusVal = 0;
+            $.ajax({
+                url:'statusprprty',
+                type:"post",
+                data:{status:'1',prop_id:propId},
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                success:function(data){
+                    $('#'+propId+'deactive').removeClass('redbtndisabled');
+                    $('#'+propId+'deactive').addClass('redbtnactive');
+                    $('#'+propId+'active').removeClass('greenbtnactive');
+                    $('#'+propId+'active').addClass('greenbtndisabled');
+                    $('#'+propId+'statustext').text('Active');
+                    $('#'+propId+'statustext').addClass('activetextstatus');
+                    $('#'+propId+'statustext').removeClass('disabledtextstatus');
+
+                }
+            });
+        })
+       
+    });
+</script>
+{% include "partial/footer.html" %}
+

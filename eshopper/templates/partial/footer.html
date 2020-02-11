@@ -1,0 +1,21 @@
+        <script>
+            $(function(){
+                var url = window.location.href;
+                var array = url.split("/");
+                var lenArray = array.length;
+                var urlfinal = array[lenArray-1];
+                
+                    urlRegExp = new RegExp(url.replace(/\/$/,'')); 
+                    $('.navbar  li').each(function(){
+                        console.log(urlfinal);
+                        console.log(this.href);
+                        if(urlfinal===this.find('a').href){
+                            $(this).addClass('active');
+                        }
+                    });
+            
+            });
+
+        </script>
+    </body>
+</html>

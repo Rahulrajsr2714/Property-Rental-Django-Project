@@ -1,72 +1,33 @@
-<html>
-
-<head>
-    <title>
-        Property Info
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <style>
-        .colorgraph {
-            height: 5px;
-            border-top: 0;
-            background: #c4e17f;
-            border-radius: 5px;
-            background-image: linear-gradient(to right, #c4e17f,
-                    #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%,
-                    #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%,
-                    #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
-        }
-    </style>
-</head>
+@{% include "partial/test123.html" %}
 <div class="container">
     <div class="row">
         <div class="col-md-12" style="text-align: center">
-            <h1 class="mx-auto">Sundram Villas</h1>
+            <h1 class="mx-auto">{{propname}}</h1>
             <hr class="colorgraph">
-            <div style="height: 500px" id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                    <li data-target="#myCarousel" data-slide-to="4"></li>
-                    <li data-target="#myCarousel" data-slide-to="5"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div style="height: 500px" class="carousel-inner" role="listbox">
-                    {% for img in imagelist%}
-                        {% if forloop.counter == 1 %}
-                            <div class="item active">
-                        {% else %}
-                            <div class="item">
-                        {% endif %}
-                        <img src="{{ img.property_img.url }}" alt="Image" width="460" height="345">
-                        <div class="carousel-caption">
-                            <h3>Hii</h3>
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {%for images in propimgs%}
+                        <div class="carousel-item {%if forloop.first%}
+                                                    active
+                                                    {%endif%}">
+                            <img style="max-height: 500px;min-height:300px" class="d-block w-100 img-fluid" src="{{images.property_img.url}}" alt="Second slide">
                         </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    {%endfor%}
                 </div>
-            </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+              <div>
+                  <p>bhuhhahhhaa</p>
+                  <p>{{propdetails.property_name}}</p>
+              </div>
+        </div>
         </div>
     </div>
 

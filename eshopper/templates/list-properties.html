@@ -1,209 +1,38 @@
-<html>
-    <head>
-        <title>View Our Properties</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        {%load static%}
-
-        <!-- Custom-Files -->
-        <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
-        <!-- Bootstrap-Core-CSS -->
-        <link rel="stylesheet" href="{%static 'css/style.css'%}" type="text/css" media="all" />
-        <!-- Style-CSS -->
-        <link rel="stylesheet" href="{%static 'css/fontawesome-all.css'%}">
-        <!-- Font-Awesome-Icons-CSS -->
-        <!-- //Custom-Files -->
-
-	<!-- Web-Fonts -->
-	<link href="//fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-        <style type="text/css">
-            /*.mainbg {
-                background-image: url("{%static 'images/1.jpg'%}");   
-            }*/
-            .mainbg {
-                background-image: url("{%static 'images/bg27.jpg'%}");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                
-            }
-
-            header{
-                position: -webkit-sticky;
-                position: sticky;
-                top: 0px;
-                overflow: hidden;
-                z-index: 100;
-            }
+{%include "partial/test123.html"%}
             
-            .tempbox{
-                height: auto;
-                padding: 15px;
-
-            }
-            .groupitem{
-                box-shadow: inset 1px 1px 40px 0 rgba(0, 0, 0, 0.45);
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .overlay {
-                background: rgba(0, 0, 0, 0.75);
-                text-align: center;
-                padding: auto;
-                border-radius: 5px;
-                opacity: 0;
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                bottom: 15px;
-                left: 15px;
-                -webkit-transition: opacity 0.25s ease;
-                -moz-transition: opacity 0.25s ease;
-              }
-              .tempbox:hover .overlay {
-                opacity: 1;
-              }
-
-            .card-image-top{
-                width: 100%;
-                height: 200px;
-                position: relative;
-                border-top-left-radius: 0.25rem;
-                border-top-right-radius: 0.25rem;
-                
-            }
-            .colorgraph{
-                height: 5px;
-                border-top: 0;
-                background: #c4e17f;
-                border-radius: 5px;
-                background-image: linear-gradient(to right,#c4e17f,
-                #c4e17f 12.5%,#f7fdca 12.5%,#f7fdca 25%,
-                #fecf71 25%,#fecf71 37.5%,#f0776c 37.5%,#f0776c 50%,
-                #db9dbe 50%,#db9dbe 62.5%,#c49cde 62.5%,#c49cde 75%,#669ae1 
-                75%,#669ae1 87.5%,#62c2e4 87.5%,#62c2e4);
-            } 
-            .menu{
-                position: -webkit-sticky;
-                position: sticky;
-                top: 15px;
-                overflow: hidden;
-                z-index: 100;
-
-            }
-              .btn-viewmore{
-                color: white;
-                background-color: #FF3C41;
-                font-weight: 600;
-                width: auto;
-                letter-spacing: 0.5px;
-                margin-top: 40%;
-            }
-            .btn-viewmore:hover{
-                color: #FF3C41;
-                font-weight: 900;
-                background-color: white;
-            }
-
-        </style>
-    </head>
-    <body class="mainbg">
-            <!-- <div class="container">
-                
-            </div>
-            <br> -->
-           <header>
-                <div class="header_topw3layouts_bar">
-                    <div class="container">
-                        <!-- header-top -->
-                        <div class="row border-bottom py-lg-1 ">
-                            <div class="col-xl-5 col-lg-6 mt-lg-0 mt-2 ml-auto">
-                                <span style="float: right;">
-                                    <i class="fas fa-user mr-2 mt-1"></i><p  style="float: right;
-                                                    margin-bottom: 0px;">Howdy {{username}}</p>
-                                </span>
-						    </div>
+            
+<div class="container" style="clear: both; ">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %} 
+    <div class="row">
+            <!-- and for propertyimg in propertyimglist -->
+        {%for property,propertyimg in mylist%}
+            <div class="col-sm-6 col-md-4 tempbox">
+                <div class="groupitem">
+                    <img class="img-fluid card-image-top " src="{{propertyimg.property_img.url}}">
+                    <div class="card-body image">
+                        <div style="display: inline-block">
+                            <h6>{{property.property_name}}</h6>
+                            <p>{{property.property_holder.name}}</p>
                         </div>
-                        <!--// header-top -->
-
-                        <!-- navigation -->
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
-                            <a class="navbar-brand" style="font-size: 28px" href="#">WhiteBricks INC.
-                                <span>PG Rental</span>
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">All Properties</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="addproperty">Add Property</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="myproperties">My Properties</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about.html">Edit Property</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="logout-user">Logout</a>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        </nav>
-                        <!-- //navigation -->
+                        <div style="display: inline-block;float:right;">
+                            <h4>₹ {{property.property_rent}}</h4>
+                        </div>
+                    </div>
+                    <div class="overlay">
+                        <a style="display: block" href="viewdetails/{{property.id}}"><button class="btn btn-viewmore">View More</button></a>
+                        {%if request.user == property.property_holder %}
+                            <a href="viewdetails/{{property.id}}"><button style="margin-top: 15px"  class="btn btn-viewmore">Edit Property</button></a>
+                        {%endif%}
                     </div>
                 </div>
-        </header>
-            
-            
-        <div class="container" style="clear: both; ">
-            {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                {% endfor %}
             </div>
-            {% endif %} 
-            <div class="row">
-                    <!-- and for propertyimg in propertyimglist -->
-                {%for property,propertyimg in mylist%}
-                    <div class="col-sm-6 col-md-4 tempbox">
-                        <div class="groupitem">
-                            <img class="img-fluid card-image-top " src="{{propertyimg.property_img.url}}">
-                            <div class="card-body image">
-                                <div style="display: inline-block">
-                                    <h6>{{property.property_name}}</h6>
-                                    <p>{{property.property_landmark}}</p>
-                                </div>
-                                <div style="display: inline-block;float: right;">
-                                    <h4>₹ {{property.property_rent}}</h4>
-                                </div>
-                            </div>
-                            <div class="overlay">
-                                <a style="display: block" href="viewdetails/{{property.id}}"><button class="btn btn-viewmore">View More</button></a>
-                                {%if request.user == property.property_holder %}
-                                    <a href="viewdetails/{{property.id}}"><button style="margin-top: 15px"  class="btn btn-viewmore">Edit Property</button></a>
-                                {%endif%}
-                            </div>
-                        </div>
-                    </div>
-                {%endfor%}
-            </div>
-        </div>
-    </body>
-</html>
+        {%endfor%}
+    </div>
+</div>
+{%include "partial/footer.html"%}
