@@ -202,7 +202,7 @@ def paymentGateway(request):
         "currency": "INR",
 
     }
-    client = razorpay.Client(auth=("rzp_test_8VSYA4XCH7dVBN", "2Cd4T7z7ASmNoAEQ9ag3tdTd"))
+    client = razorpay.Client(auth=(<your razorpay api key>, <you razorpay secret key>))
     order_id=client.order.create(data = DATA)
     context = {"orderid":order_id}
     return render(request,"payu.html",context)
