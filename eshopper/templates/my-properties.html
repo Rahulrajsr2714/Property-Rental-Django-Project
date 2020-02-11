@@ -1,0 +1,106 @@
+
+{% include "partial/test123.html" %}
+
+
+<div class="container">
+    
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %} 
+
+    {%for property in prprtylist%}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <div class="listitem">
+                <h3 style="margin: 0px 0px 0px 25px;display: inline;font-size: 1.5rem">{{property.property_name}}</h3>
+                <div class="mx-auto" style="display: inline-block;">
+                    <p style="color: blue;display: inline;">Status :</p>
+
+                    <p id="{{property.id}}statustext" class="{%if property.property_available == 1 %}
+                                                                activetextstatus
+                                                            {%elif property.property_available == 0 %}
+                                                                disabledtextstatus
+                                                            {%endif%}">{%if property.property_available == 1 %}
+                                                                            Active
+                                                                        {%elif property.property_available == 0 %}
+                                                                            InActive
+                                                                        {%endif%}
+                                                                        </p>
+                </div>
+                <div class="ml-auto" style="display: inline-block">
+                    <a prop-id={{property.id}} class="active active{{property.id}}">
+
+                        <i id="{{property.id}}active" class="fas fa-check {%if property.property_available == 0 %} 
+                                                    greenbtnactive
+                                                {%elif property.property_available == 1%}
+                                                    greenbtndisabled
+                                                {%endif%}"></i>
+                    </a>
+                    <a prop-id={{property.id}} class="deactive deactive{{property.id}}">
+                        <i id="{{property.id}}deactive" class="fas fa-times {%if property.property_available == 1 %} 
+                                                    redbtnactive
+                                                {%elif property.property_available == 0%}
+                                                    redbtndisabled
+                                                {%endif%}"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".deactive").click(function(){
+            propId=$(this).attr('prop-id');
+            $.ajax({
+                url:'statusprprty',
+                type:"post",
+                data:{status:"0",prop_id:propId},
+                dataType:'json',
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                success:function(data){
+                    $('#'+propId+'deactive').removeClass('redbtnactive');
+                    $('#'+propId+'deactive').addClass('redbtndisabled');
+                    $('#'+propId+'active').removeClass('greenbtndisabled');
+                    $('#'+propId+'active').addClass('greenbtnactive');
+                    $('#'+propId+'statustext').html('Inactive');
+                    $('#'+propId+'statustext').addClass('disabledtextstatus');
+                    $('#'+propId+'statustext').removeClass('activetextstatus');
+
+                   
+
+                }
+            });
+        })
+        $(".active").click(function(){
+            propId=$(this).attr('prop-id');
+            statusVal = 0;
+            $.ajax({
+                url:'statusprprty',
+                type:"post",
+                data:{status:'1',prop_id:propId},
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                success:function(data){
+                    $('#'+propId+'deactive').removeClass('redbtndisabled');
+                    $('#'+propId+'deactive').addClass('redbtnactive');
+                    $('#'+propId+'active').removeClass('greenbtnactive');
+                    $('#'+propId+'active').addClass('greenbtndisabled');
+                    $('#'+propId+'statustext').text('Active');
+                    $('#'+propId+'statustext').addClass('activetextstatus');
+                    $('#'+propId+'statustext').removeClass('disabledtextstatus');
+
+                }
+            });
+        })
+       
+    });
+</script>
+{% include "partial/footer.html" %}
+

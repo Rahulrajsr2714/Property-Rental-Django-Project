@@ -1,60 +1,38 @@
-<html>
-    <head>
-        <title>View Our Properties</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="https://kit.fontawesome.com/b723bd9b3f.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <style type="text/css">
-            .tempbox{
-                height: auto;
-                padding: 15px;
-            }
-            .card-image-top{
-                width: 100%;
-                height: 200px;
-                position: relative;
-                border-top-left-radius: 0.25rem;
-                border-top-right-radius: 0.25rem;
-                
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg">
-                    <div class="card-body">
-                        <h6>Venture Villa</h6>
-                        <p>Attingal</p>
+{%include "partial/test123.html"%}
+            
+            
+<div class="container" style="clear: both; ">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %} 
+    <div class="row">
+            <!-- and for propertyimg in propertyimglist -->
+        {%for property,propertyimg in mylist%}
+            <div class="col-sm-6 col-md-4 tempbox">
+                <div class="groupitem">
+                    <img class="img-fluid card-image-top " src="{{propertyimg.property_img.url}}">
+                    <div class="card-body image">
+                        <div style="display: inline-block">
+                            <h6>{{property.property_name}}</h6>
+                            <p>{{property.property_holder.name}}</p>
+                        </div>
+                        <div style="display: inline-block;float:right;">
+                            <h4>₹ {{property.property_rent}}</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://image.freepik.com/free-photo/tropical-leaves-colorful-flower-dark-tropical-foliage-nature-background-dark-green-foliage_34998-128.jpg">
-                    <div class="card-body">
-                        <h6>Thasil Villa</h6>
-                        <p>Kollam</p>
-                    </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://tinypng.com/images/social/website.jpg">
-                    <div class="card-body">
-                        <h6>Sundram Villa</h6>
-                        <p>Thiruvananthapuram</p>
-                    </div>
-                </div>
-                <div class="col-md-4 tempbox">
-                    <img class="card-image-top d-xs" src="https://pe-images.s3.amazonaws.com/photo-effects/cc/image-in-shape/photoshop-image-in-shape-effect.jpg">
-                    <div class="card-body">
-                        <h6>Sundram Villa</h6>
-                        <p>Thiruvananthapuram</p>
+                    <div class="overlay">
+                        <a style="display: block" href="viewdetails/{{property.id}}"><button class="btn btn-viewmore">View More</button></a>
+                        {%if request.user == property.property_holder %}
+                            <a href="viewdetails/{{property.id}}"><button style="margin-top: 15px"  class="btn btn-viewmore">Edit Property</button></a>
+                        {%endif%}
                     </div>
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+        {%endfor%}
+    </div>
+</div>
+{%include "partial/footer.html"%}

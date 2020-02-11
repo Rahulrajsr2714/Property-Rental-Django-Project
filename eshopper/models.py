@@ -3,7 +3,13 @@ from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 
 
 class MyAccountManager(BaseUserManager):
+
     def create_user(self,email,username,phone,name,password=None):
+
+        '''
+            
+
+        '''
         if not email:
             raise ValueError()
         if not username:
@@ -59,6 +65,7 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
 class Property(models.Model):
     property_name         = models.CharField(max_length=100, verbose_name=("property name"))
     property_holder       = models.ForeignKey(Account,default = None, verbose_name= ("property holder"), on_delete=models.CASCADE)
@@ -68,11 +75,13 @@ class Property(models.Model):
     property_address      = models.CharField(max_length=500)
     property_landmark     = models.CharField(max_length=100)
     date_added            = models.DateTimeField(auto_now_add = True)
-
+ 
 class PropertyImages(models.Model):
     prop_id = models.ForeignKey(Property,on_delete=models.CASCADE,default = None,)
     property_img = models.ImageField(upload_to='images/property')
     property_img_tag = models.CharField(max_length=500,default='Property Image')
+
+
 # class Notifications(models.Model):
 #     sent_user      = 
 
